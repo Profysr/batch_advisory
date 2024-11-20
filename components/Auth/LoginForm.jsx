@@ -2,7 +2,7 @@
 import { InputField } from "../Gen/InputField";
 import MagicButton from "../Gen/Button";
 import { useActionState } from "react";
-import { loginFn } from "@/helper/serverActions";
+import { loginFn } from "@/helper/actions";
 
 const LoginForm = () => {
   const [state, loginAction] = useActionState(loginFn, undefined);
@@ -34,9 +34,6 @@ const LoginForm = () => {
               type={"password"}
               placeholder={"Enter Your Password"}
             />
-            {state?.errors?.password && (
-              <p className="text-red-500">{state.errors.password}</p>
-            )}
           </div>
           <MagicButton title="Sign In" type="submit" otherClasses="!w-full" />
         </form>

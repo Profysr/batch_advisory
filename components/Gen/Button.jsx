@@ -5,7 +5,7 @@ import React from "react";
 const MagicButton = ({ title, icon, position, handleClick, otherClasses }) => {
   return (
     <button
-      className={`relative inline-flex h-12 overflow-hidden rounded-md p-[1px] focus:outline-none md:w-48 md:mt-4 ${otherClasses}`}
+      className={`relative inline-flex h-12 overflow-hidden rounded-md p-[1px] focus:outline-none md:w-48 ${otherClasses}`}
       onClick={handleClick}
       aria-label="Magic Button Component"
     >
