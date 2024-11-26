@@ -1,0 +1,312 @@
+{
+  "resultData": [
+    {
+      "semester": "Spring 2021",
+      "gpa": 3.32,
+      "cgpa": 3.32,
+      "courses": [
+        {
+          "courseNo": "CSC101",
+          "courseTitle": "Introduction to ICT",
+          "creditHours": 3,
+          "marks": 76,
+          "gpa": 3
+        },
+        {
+          "courseNo": "EEE121",
+          "courseTitle": "Electric Circuits Analysis I",
+          "creditHours": 4,
+          "marks": 80,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "HUM100",
+          "courseTitle": "English Comprehension and Composition",
+          "creditHours": 3,
+          "marks": 75,
+          "gpa": 3
+        },
+        {
+          "courseNo": "HUM110",
+          "courseTitle": "Islamic Studies",
+          "creditHours": 3,
+          "marks": 83,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "MTH104",
+          "courseTitle": "Calculus and Analytic Geometry",
+          "creditHours": 3,
+          "marks": 90,
+          "gpa": 4
+        }
+      ]
+    },
+    {
+      "semester": "Fall 2021",
+      "gpa": 3.48,
+      "cgpa": 3.4,
+      "courses": [
+        {
+          "courseNo": "CSC102",
+          "courseTitle": "Discrete Structures",
+          "creditHours": 3,
+          "marks": 80,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "CSC103",
+          "courseTitle": "Programming Fundamentals",
+          "creditHours": 4,
+          "marks": 85,
+          "gpa": 3.7
+        },
+        {
+          "courseNo": "CSC110",
+          "courseTitle": "Professional Practices for IT",
+          "creditHours": 3,
+          "marks": 75,
+          "gpa": 3
+        },
+        {
+          "courseNo": "HUM103",
+          "courseTitle": "Communication Skills",
+          "creditHours": 3,
+          "marks": 78,
+          "gpa": 3
+        },
+        {
+          "courseNo": "HUM111",
+          "courseTitle": "Pakistan Studies",
+          "creditHours": 3,
+          "marks": 85,
+          "gpa": 3.7
+        },
+        {
+          "courseNo": "MTH105",
+          "courseTitle": "Multivariable Calculus",
+          "creditHours": 3,
+          "marks": 93,
+          "gpa": 4
+        }
+      ]
+    },
+    {
+      "semester": "Spring 2022",
+      "gpa": 3.38,
+      "cgpa": 3.31,
+      "courses": [
+        {
+          "courseNo": "CSC241",
+          "courseTitle": "Object Oriented Programming",
+          "creditHours": 4,
+          "marks": 87,
+          "gpa": 3.7
+        },
+        {
+          "courseNo": "CSC339",
+          "courseTitle": "Data Communications and Computer Networks",
+          "creditHours": 3,
+          "marks": 71,
+          "gpa": 2.7
+        },
+        {
+          "courseNo": "CSE291",
+          "courseTitle": "Introduction to Software Engineering",
+          "creditHours": 4,
+          "marks": 68,
+          "gpa": 2.3
+        },
+        {
+          "courseNo": "EEE241",
+          "courseTitle": "Digital Logic Design",
+          "creditHours": 4,
+          "marks": 80,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "HUM102",
+          "courseTitle": "Report Writing Skills",
+          "creditHours": 3,
+          "marks": 85,
+          "gpa": 3.7
+        },
+        {
+          "courseNo": "MTH231",
+          "courseTitle": "Linear Algebra",
+          "creditHours": 3,
+          "marks": 80,
+          "gpa": 3.3
+        }
+      ]
+    },
+    {
+      "semester": "Fall 2022",
+      "gpa": 3.41,
+      "cgpa": 3.33,
+      "courses": [
+        {
+          "courseNo": "CSC211",
+          "courseTitle": "Data Structures and Algorithms",
+          "creditHours": 4,
+          "marks": 77,
+          "gpa": 3
+        },
+        {
+          "courseNo": "CSC371",
+          "courseTitle": "Database Systems I",
+          "creditHours": 4,
+          "marks": 83,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "CSC495",
+          "courseTitle": "Game Development",
+          "creditHours": 3,
+          "marks": 82,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "CSE304",
+          "courseTitle": "Object Oriented Software Engineering",
+          "creditHours": 3,
+          "marks": 88,
+          "gpa": 3.7
+        },
+        {
+          "courseNo": "MTH242",
+          "courseTitle": "Differential Equations",
+          "creditHours": 3,
+          "marks": 90,
+          "gpa": 4
+        }
+      ]
+    },
+    {
+      "semester": "Spring 2023",
+      "gpa": 3.51,
+      "cgpa": 3.39,
+      "courses": [
+        {
+          "courseNo": "CSC232",
+          "courseTitle": "Operating Systems",
+          "creditHours": 4,
+          "marks": 80,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "CSC336",
+          "courseTitle": "Web Technologies",
+          "creditHours": 3,
+          "marks": 86,
+          "gpa": 3.7
+        },
+        {
+          "courseNo": "CSC354",
+          "courseTitle": "Machine Learning",
+          "creditHours": 3,
+          "marks": 80,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "CSE302",
+          "courseTitle": "Software Quality Engineering",
+          "creditHours": 3,
+          "marks": 90,
+          "gpa": 4
+        },
+        {
+          "courseNo": "CSE305",
+          "courseTitle": "Software Requirement Engineering",
+          "creditHours": 3,
+          "marks": 91,
+          "gpa": 4
+        }
+      ]
+    },
+    {
+      "semester": "Fall 2023",
+      "gpa": 3.54,
+      "cgpa": 3.4,
+      "courses": [
+        {
+          "courseNo": "CSC455",
+          "courseTitle": "Computer Vision",
+          "creditHours": 3,
+          "marks": 87,
+          "gpa": 3.5
+        },
+        {
+          "courseNo": "CSE303",
+          "courseTitle": "Software Design and Architecture",
+          "creditHours": 3,
+          "marks": 86,
+          "gpa": 3.7
+        },
+        {
+          "courseNo": "CSE354",
+          "courseTitle": "Design Patterns",
+          "creditHours": 3,
+          "marks": 95,
+          "gpa": 4
+        },
+        {
+          "courseNo": "MGT101",
+          "courseTitle": "Introduction to Management",
+          "creditHours": 3,
+          "marks": 82,
+          "gpa": 3.3
+        },
+        {
+          "courseNo": "MGT350",
+          "courseTitle": "Human Resource Management",
+          "creditHours": 3,
+          "marks": 71,
+          "gpa": 2.7
+        }
+      ]
+    },
+    {
+      "semester": "Spring 2024",
+      "gpa": 3.56,
+      "cgpa": 3.41,
+      "courses": [
+        {
+          "courseNo": "CSC356",
+          "courseTitle": "Human Computer Interaction",
+          "creditHours": 3,
+          "marks": 72,
+          "gpa": 2.7
+        },
+        {
+          "courseNo": "CSC432",
+          "courseTitle": "Information Security",
+          "creditHours": 3,
+          "marks": 70,
+          "gpa": 2.7
+        },
+        {
+          "courseNo": "CSE498",
+          "courseTitle": "Senior Design Project I",
+          "creditHours": 2,
+          "marks": 97,
+          "gpa": 4
+        },
+        {
+          "courseNo": "MGT403",
+          "courseTitle": "Entrepreneurship",
+          "creditHours": 3,
+          "marks": 91,
+          "gpa": 4
+        },
+        {
+          "courseNo": "MTH262",
+          "courseTitle": "Probability and Statistics",
+          "creditHours": 3,
+          "marks": 88,
+          "gpa": 3.7
+        }
+      ]
+    }
+  ]
+}

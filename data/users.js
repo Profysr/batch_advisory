@@ -25,6 +25,7 @@ export let coursesHeaderForStudent = [
   { id: 3, name: "Credit Hours" },
   { id: 4, name: "Pre-requisite" },
 ];
+
 export let coursesDataForStudent = [
   {
     id: "CSC302",

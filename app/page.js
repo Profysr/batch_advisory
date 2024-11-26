@@ -1,22 +1,18 @@
-import { verifySession } from "@/helper/dal";
-import { redirect } from "next/navigation";
 import AdminPage from "@/components/Admin/AdminPage";
 import AdvisorPage from "@/components/Advisor/AdvisorPage";
 import StudentPage from "@/components/Student/StudentPage";
+import { verifySession } from "@/helper/dal";
+import { redirect } from "next/navigation";
 
 const Home = async () => {
-  const session = await verifySession();
-  const { userRole } = session;
+  const { userRole } = await verifySession();
 
   if (userRole === "admin") {
-    // return <AdminPage />;
-    redirect("/admin");
+    return <AdminPage />;
   } else if (userRole === "advisor") {
-    // return <AdvisorPage />;
-    redirect("/advisor");
+    return <AdvisorPage />;
   } else if (userRole === "student") {
-    // return <StudentPage />;
-    redirect("/student");
+    return <StudentPage />;
   } else {
     redirect("/auth");
   }

@@ -84,24 +84,3 @@ export const metrics = [
     bg: "bg-red-100",
   },
 ];
-
-export const advisorsData = [
-  {
-    name: "Mariam Nawaz",
-    email: "mariannawaz@teacher.cuisahiwal.edu.pk",
-    password: "zxcvbnm1",
-    assignedClass: "BSCS-6A",
-  },
-  {
-    name: "Hassan Raza",
-    email: "hassanraza@teacher.cuisahiwal.edu.pk",
-    password: "asdfgh12",
-    assignedClass: "BSCS-6A",
-  },
-  {
-    name: "Zainab Tariq",
-    email: "zainabtariq@teacher.cuisahiwal.edu.pk",
-    password: "password01",
-    assignedClass: "BSCS-6A",
-  },
-];

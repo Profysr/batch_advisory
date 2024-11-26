@@ -4,28 +4,46 @@ import Link from "next/link";
 import React, { useState } from "react";
 import MagicButton from "./Button";
 import { logoutSession } from "@/helper/actions";
-
-const navLinks = [
-  {
-    name: "Home",
-    href: "/",
-  },
-  {
-    name: "Manage Classes",
-    href: "/admin/manage-classes",
-  },
-  {
-    name: "Manage Advisors",
-    href: "/admin/manage-advisor",
-  },
-  {
-    name: "Manage SOS",
-    href: "/admin/manage-sos",
-  },
-];
+import { getUserRole } from "@/helper/utility";
+import Overlay from "./Overlay";
 
 const Header = () => {
+  const userRole = "admin";
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  // Define navigation menus for each role
+  const menus = {
+    admin: [
+      {
+        name: "Home",
+        href: "/",
+      },
+      {
+        name: "Manage Classes",
+        href: "/manage-classes",
+      },
+      {
+        name: "Manage Advisors",
+        href: "/manage-advisor",
+      },
+      {
+        name: "Manage SOS",
+        href: "/manage-sos",
+      },
+    ],
+    advisor: [
+      { label: "Dashboard", path: "/advisor/dashboard" },
+      { label: "My Classes", path: "/advisor/classes" },
+      { label: "Schedule", path: "/advisor/schedule" },
+    ],
+    student: [],
+  };
+
+  // Fallback menu if the role is not recognized
+  const defaultMenu = [{ label: "Home", path: "/" }];
+
+  // Select menu based on the user role
+  const navigationMenu = menus[userRole] || defaultMenu;
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -45,7 +63,7 @@ const Header = () => {
       className="bg-white border-b border-black"
       aria-label="Header Component in Gen"
     >
-      <nav className="flex justify-between items-center w-[90%] max-w-screen-xl mx-auto p-2">
+      <nav className="flex justify-between items-center w-full max-w-screen-xl mx-auto p-2 px-6">
         <div>
           <Image
             className="cursor-pointer"
@@ -62,7 +80,7 @@ const Header = () => {
           } transition-transform duration-300 w-72 lg:w-1/4 flex items-center`}
         >
           <ul className="flex flex-col items-start gap-6 p-2 w-full">
-            {navLinks.map((item, index) => (
+            {navigationMenu.map((item, index) => (
               <li key={index} className="w-full">
                 <Link
                   className="block w-full p-2 text-center md:p-1 md:w-auto  hover:text-gray-500"
@@ -107,12 +125,7 @@ const Header = () => {
         </div>
 
         {/* Overlay */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
-            onClick={closeSidebar}
-          ></div>
-        )}
+        {isSidebarOpen && <Overlay handleClick={toggleSidebar} />}
       </nav>
     </header>
   );

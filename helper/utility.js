@@ -1,4 +1,5 @@
 import { users } from "@/data/users";
+import { useCallback } from "react";
 import { z } from "zod";
 
 // Simulate fetching user from a database
@@ -18,3 +19,11 @@ export const LoginFormSchema = z.object({
     })
     .trim(),
 });
+
+export const uploadToLocalStorage = (name, data) => {
+  try {
+    localStorage.setItem(name, JSON.stringify(data));
+  } catch (error) {
+    console.log("Failed to Upload Data to local Storage", error);
+  }
+};

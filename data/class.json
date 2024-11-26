@@ -1,0 +1,32 @@
+{
+  "className": "SP21-BSE-8A",
+  "department": "Computer Science",
+  "semester": "Spring 2021",
+  "advisor": {
+    "name": "Ms. Mubeen",
+    "email": "mubeen@gmail.com"
+  },
+  "students": [
+    {
+      "id": 1,
+      "name": "Bilal",
+      "email": "bilal@student.university.edu",
+      "password": 123,
+      "type": "regular"
+    },
+    {
+      "id": 2,
+      "name": "Saad",
+      "email": "jane.smith@student.university.edu",
+      "password": 123,
+      "type": "repeater"
+    },
+    {
+      "id": 3,
+      "name": "Javid",
+      "email": "mike.brown@student.university.edu",
+      "password": 123,
+      "type": "regular"
+    }
+  ]
+}

@@ -1,12 +1,48 @@
 "use client";
+import DashboardLayout from "@/layout/DashboardLayout";
+import { useEffect, useMemo, useState } from "react";
+import Table from "../Gen/Table";
 
-import { logoutSession } from "@/helper/actions";
+const AdvisorPage = () => {
+  const assignedClass = "SP21-BSE-8A";
 
-export default function AdvisorPage() {
+  const [classData, setClassData] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem("classData"));
+    const selectedClass = storedData.find((classItem) =>
+      classItem.className.toLowerCase().includes(assignedClass.toLowerCase())
+    );
+
+    return selectedClass ? selectedClass : [];
+  });
+
+  const thead = useMemo(() => {
+    return [
+      { name: "Reg#" },
+      {
+        name: "Name",
+      },
+      {
+        name: "Email",
+      },
+      {
+        name: "Password",
+      },
+      {
+        name: "",
+      },
+    ];
+  }, []);
+
   return (
-    <div>
-      Advisor
-      <button onClick={() => logoutSession()}>Logout</button>
-    </div>
+    <DashboardLayout>
+      <Table
+        data={classData.students || []}
+        thead={thead}
+        title={classData.className}
+        key={classData.className}
+      />
+    </DashboardLayout>
   );
-}
+};
+
+export default AdvisorPage;

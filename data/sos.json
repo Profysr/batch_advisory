@@ -1,0 +1,215 @@
+[
+  {
+    "course_code": "CSC101",
+    "course_title": "Introduction to ICT",
+    "credit_hours": "3(2,1)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC102",
+    "course_title": "Discrete Structures",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC103",
+    "course_title": "Programming Fundamentals",
+    "credit_hours": "4(3,1)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC211",
+    "course_title": "Data Structures and Algorithms",
+    "credit_hours": "4(3,1)",
+    "pre_requisites": "CSC103",
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC241",
+    "course_title": "Object Oriented Programming",
+    "credit_hours": "4(3,1)",
+    "pre_requisites": "CSC103",
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC322",
+    "course_title": "Operating Systems",
+    "credit_hours": "3(2,1)",
+    "pre_requisites": "CSC211",
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC339",
+    "course_title": "Data Communications and Computer Networks",
+    "credit_hours": "3(2,1)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC356",
+    "course_title": "Human Computer Interaction",
+    "credit_hours": "3(2,1)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC371",
+    "course_title": "Database Systems I",
+    "credit_hours": "4(3,1)",
+    "pre_requisites": "CSC241",
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSC432",
+    "course_title": "Information Security",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSE291",
+    "course_title": "Introduction to Software Engineering",
+    "credit_hours": "4(3,1)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSE498",
+    "course_title": "Senior Design Project I",
+    "credit_hours": "2(0,2)",
+    "pre_requisites": "CSC241, CSC371, CSE291, HUM102",
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "CSE499",
+    "course_title": "Senior Design Project II",
+    "credit_hours": "4(0,4)",
+    "pre_requisites": "CSE498",
+    "course-type": "Computing Core Courses"
+  },
+  {
+    "course_code": "EEE241",
+    "course_title": "Digital Logic Design",
+    "credit_hours": "4(3,1)",
+    "pre_requisites": null,
+    "course-type": "Computing Core Courses"
+  },
+
+  {
+    "course_code": "CSC110",
+    "course_title": "Professional Practices for IT",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing General Education Courses"
+  },
+  {
+    "course_code": "HUM100",
+    "course_title": "English Comprehension and Composition",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing General Education Courses"
+  },
+  {
+    "course_code": "HUM102",
+    "course_title": "Report Writing Skills",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": "HUM100",
+    "course_type": "Computing General Education Courses"
+  },
+  {
+    "course_code": "HUM103",
+    "course_title": "Communication Skills",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": "HUM100",
+    "course_type": "Computing General Education Courses"
+  },
+  {
+    "course_code": "HUM110",
+    "course_title": "Islamic Studies",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing General Education Courses"
+  },
+  {
+    "course_code": "HUM111",
+    "course_title": "Pakistan Studies",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing General Education Courses"
+  },
+  {
+    "course_code": "HUM114",
+    "course_title": "Ethics",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing General Education Courses"
+  },
+  {
+    "course_code": "EEE121",
+    "course_title": "Electric Circuits Analysis I",
+    "credit_hours": "4(3,1)",
+    "pre_requisites": null,
+    "course_type": "Computing Supporting Courses"
+  },
+  {
+    "course_code": "MTH104",
+    "course_title": "Calculus and Analytic Geometry",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing Supporting Courses"
+  },
+  {
+    "course_code": "MTH231",
+    "course_title": "Linear Algebra",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing Supporting Courses"
+  },
+  {
+    "course_code": "MTH262",
+    "course_title": "Statistics and Probability Theory",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": null,
+    "course_type": "Computing Supporting Courses"
+  },
+  {
+    "course_code": "CSC321",
+    "course_title": "Microprocessor and Assembly Language",
+    "credit_hours": "3(2,1)",
+    "pre_requisites": "EEE241",
+    "course_type": "CS and SE Elective Courses"
+  },
+  {
+    "course_code": "CSC331",
+    "course_title": "Digital Image Processing",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": "MTH231",
+    "course_type": "CS and SE Elective Courses"
+  },
+  {
+    "course_code": "CSC334",
+    "course_title": "Parallel and Distributed Computing",
+    "credit_hours": "3(2,1)",
+    "pre_requisites": "CSC103",
+    "course_type": "CS and SE Elective Courses"
+  },
+  {
+    "course_code": "CSC347",
+    "course_title": "Computational Intelligence",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": "CSC241",
+
+    "course_type": "CS and SE Elective Courses"
+  },
+  {
+    "course_code": "CSC402",
+    "course_title": "Database Systems II",
+    "credit_hours": "3(3,0)",
+    "pre_requisites": "CSC371",
+
+    "course_type": "CS and SE Elective Courses"
+  }
+]
