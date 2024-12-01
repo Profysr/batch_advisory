@@ -1,32 +1,40 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, forwardRef } from "react";
 
-export const InputField = ({
-  id,
-  name,
-  title,
-  type,
-  placeholder,
-  className,
-  value,
-  onChange,
-  onKeyDown,
-}) => (
-  <div className="flex flex-col gap-2" aria-label="Custom Input Component">
-    <label htmlFor={id}>{title}</label>
-    <input
-      className={`${className} w-full px-2 py-3 rounded-md border-2 border-black-100 placeholder:opacity-75 placeholder:text-xs text-sm focus:outline-none`}
-      required
-      placeholder={placeholder}
-      id={id}
-      name={name}
-      type={type}
-      value={value}
-      onChange={onChange}
-      onKeyDown={onKeyDown} // Add onKeyDown to input
-      autoComplete="off"
-    />
-  </div>
+export const InputField = forwardRef(
+  (
+    {
+      id,
+      name,
+      title,
+      type = "text",
+      placeholder = "",
+      className = "",
+      value,
+      onChange,
+      onKeyDown,
+      ...props
+    },
+    ref
+  ) => (
+    <div className="flex flex-col gap-2" aria-label="Custom Input Component">
+      {title && <label htmlFor={id}>{title}</label>}
+      <input
+        className={`${className} w-full px-2 py-3 rounded-md border-2 border-black-100 placeholder:opacity-75 placeholder:text-xs text-sm focus:outline-none`}
+        required
+        placeholder={placeholder}
+        id={id}
+        name={name}
+        type={type}
+        value={value} // Controlled input
+        onChange={onChange} // Conditionally handle onChange if provided
+        onKeyDown={onKeyDown} // Handle onKeyDown
+        ref={ref} // Allow ref to be passed for uncontrolled input
+        autoComplete="off"
+        {...props} // Pass down additional props if needed
+      />
+    </div>
+  )
 );
 
 export const SearchInput = ({ placeholder }) => {

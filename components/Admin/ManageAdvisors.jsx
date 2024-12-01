@@ -4,63 +4,71 @@ import MagicButton from "@/components/Gen/Button";
 import EmptyPage from "@/components/Gen/EmptyPage";
 import Table from "@/components/Gen/Table";
 import DashboardLayout from "@/layout/DashboardLayout";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import Popup from "../Gen/Popup";
+import { useAppContext } from "@/context/AppContext";
+import Overlay from "../Gen/Overlay";
+import { v4 as uuidv4 } from "uuid";
 
 const ManageAdvisors = () => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [uploadedData, setUploadedData] = useState(() => {
-    const storedData = localStorage.getItem("advisorsData");
-    return storedData ? JSON.parse(storedData) : [];
-  });
+  const { showPopup, dbData, setdbData, togglePopup } = useAppContext();
 
-  useEffect(() => {
-    localStorage.setItem("advisorsData", JSON.stringify(uploadedData));
-  }, [uploadedData]);
+  const handleFileUpload = (parsedData) => {
+    setdbData((prevDbData) => {
+      const updatedAdvisors = [...prevDbData.advisors];
 
-  const thead = useMemo(() => {
-    return [
-      {
-        name: "Name",
-      },
-      {
-        name: "Email",
-      },
-      {
-        name: "Password",
-      },
-      {
-        name: "AssignedClass",
-      },
-      {
-        name: "",
-      },
-    ];
-  }, []);
+      parsedData.forEach((advisor) => {
+        const advisorExists = updatedAdvisors.some(
+          (existingAdvisor) => existingAdvisor.email === advisor.email
+        );
 
-  const togglePopup = useCallback(() => setShowPopup((prev) => !prev), []);
+        if (!advisorExists) {
+          updatedAdvisors.push({
+            ...advisor,
+            assignedClass: advisor.assignedClass || null,
+            id: `Advisor${uuidv4()}`, // Assign a unique ID to each advisor
+          });
+        } else {
+          console.warn(`Advisor with email ${advisor.email} already exists.`);
+        }
+      });
+
+      return {
+        ...prevDbData,
+        advisors: updatedAdvisors,
+      };
+    });
+  };
+
+  const getClassnameById = (classId) => {
+    const classData = dbData.classes.find((cls) => cls.id === classId);
+    return classData ? classData.classname : null;
+  };
+  // Map through the advisors and add their class name
+  const advisorsWithClassname = dbData.advisors.map((advisor) => ({
+    ...advisor,
+    assignedClass: getClassnameById(advisor.assignedClass),
+  }));
 
   return (
     <DashboardLayout>
-      {uploadedData.length === 0 ? (
+      {advisorsWithClassname.length > 0 ? (
+        <Table
+          data={advisorsWithClassname}
+          title="Batch Advisors"
+          key="Batch Advisors"
+        />
+      ) : (
         <div className="w-full flex flex-col gap-4 justify-center items-center">
           <EmptyPage />
           <MagicButton title="Add Batch Advisor" handleClick={togglePopup} />
 
           {showPopup && (
-            <Popup
-              setUploadedData={setUploadedData}
-              setShowPopup={setShowPopup}
-            />
+            <>
+              <Overlay />
+              <Popup handleFileUpload={handleFileUpload} />
+            </>
           )}
         </div>
-      ) : (
-        <Table
-          data={uploadedData[0]}
-          thead={thead}
-          title="Advisor Details"
-          key="Advisor Details"
-        />
       )}
     </DashboardLayout>
   );

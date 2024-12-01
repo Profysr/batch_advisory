@@ -1,5 +1,3 @@
-import MagicButton from "./Button";
-
 const EmptyPage = () => {
   return (
     <div className="grid px-4 place-content-center">
@@ -28,7 +26,7 @@ const EmptyPage = () => {
         </h1>
 
         <p className="mt-4 text-gray-500 dark:text-gray-400">
-          You haven't any data yet !!
+          Currently, you haven't any data yet !!
         </p>
       </div>
     </div>

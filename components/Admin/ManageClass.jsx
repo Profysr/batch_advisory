@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 
 // Components
 import MagicButton from "@/components/Gen/Button";
@@ -9,19 +9,53 @@ import Popup from "../Gen/Popup";
 import Table from "../Gen/Table";
 import Link from "next/link";
 import Overlay from "../Gen/Overlay";
+import { generateRandomColor } from "@/helper/utility";
+import { useAppContext } from "@/context/AppContext";
+import { v4 as uuidv4 } from "uuid";
 
 export const ManageClasses = () => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [uploadedData, setUploadedData] = useState(() => {
-    const storedData = localStorage.getItem("classData");
-    return storedData ? JSON.parse(storedData) : [];
-  });
+  const { showPopup, dbData, togglePopup, setdbData } = useAppContext();
 
-  useEffect(() => {
-    localStorage.setItem("classData", JSON.stringify(uploadedData));
-  }, [uploadedData]);
+  const handleFileUpload = (parsedData) => {
+    const { classname, students } = parsedData;
+    setdbData((prevDbData) => {
+      const classExists = prevDbData.classes.some(
+        (cls) => cls.classname === classname
+      );
 
-  const togglePopup = useCallback(() => setShowPopup((prev) => !prev), []);
+      let updatedClasses = [...prevDbData.classes];
+
+      if (!classExists) {
+        updatedClasses.push({
+          id: `Class${uuidv4()}`,
+          classname,
+          students: students.map((std) => std.regNo),
+        });
+      } else {
+        console.error(`Class ${id} already exists.`);
+      }
+
+      const updatedStudents = [...prevDbData.students];
+      students.forEach((student) => {
+        const userExists = updatedStudents.some(
+          (user) => user.regNo === student.regNo
+        );
+        if (!userExists) {
+          updatedStudents.push({
+            ...student,
+            id: `Student${uuidv4()}`,
+          });
+        }
+      });
+
+      // Return the updated dbData state
+      return {
+        ...prevDbData,
+        classes: updatedClasses,
+        students: updatedStudents,
+      };
+    });
+  };
 
   return (
     <DashboardLayout>
@@ -30,21 +64,27 @@ export const ManageClasses = () => {
         <MagicButton title="Add Class" handleClick={togglePopup} />
       </div>
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {uploadedData.map((curr, index) => (
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {dbData.classes.map((curr, index) => (
           <div
             key={index}
-            className="p-4 border rounded-md shadow-sm hover:shadow-md"
+            className="p-6 rounded-md transition ${metric.bg}"
+            style={{
+              backgroundColor: generateRandomColor(),
+              backdropFilter: "blur(6px)", // Slight blur for a modern feel
+            }}
           >
-            <h3 className="text-lg font-semibold">{curr.className}</h3>
-            <p className="text-sm text-gray-500">
-              Students: {curr.students.length}
+            <h3 className="text-xl font-bold text-gray-800">
+              {curr?.classname}
+            </h3>
+            <p className="text-sm text-gray-700 mt-2">
+              Students: {curr?.students?.length}
             </p>
-            <p className="text-sm text-gray-500">
-              Advisor: {curr.batchAdvisor.name || "Unassigned"}
+            <p className="text-sm text-gray-700">
+              Advisor: {curr?.advisor?.name || "-"}
             </p>
-            <Link href={`/manage-classes/${curr.className}`}>
-              <button className="mt-4 px-4 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+            <Link href={`/manage-classes/${curr?.id}`}>
+              <button className="mt-4 px-4 py-2 bg-gray-800 text-white text-sm rounded-md hover:bg-gray-900 transition">
                 View Details
               </button>
             </Link>
@@ -53,102 +93,113 @@ export const ManageClasses = () => {
       </div>
 
       {showPopup && (
-        <Popup setUploadedData={setUploadedData} setShowPopup={setShowPopup} />
+        <>
+          <Popup handleFileUpload={handleFileUpload} />
+          <Overlay />
+        </>
       )}
     </DashboardLayout>
   );
 };
 
 export const ManageIndividualClass = ({ slug }) => {
+  const { showPopup, dbData, togglePopup, setdbData } = useAppContext();
+
   const [classData, setClassData] = useState(() => {
-    const storedData = JSON.parse(localStorage.getItem("classData"));
-    const selectedClass = storedData.find((classItem) =>
-      classItem.className.toLowerCase().includes(slug.toLowerCase())
+    const selectedClass = dbData.classes.find((classItem) =>
+      classItem.id.toLowerCase().includes(slug.toLowerCase())
     );
 
-    return selectedClass ? selectedClass : [];
+    if (!selectedClass) return null;
+
+    return selectedClass;
   });
 
-  // for assign batch advisor button
-  const [showPopup, setShowPopup] = useState(false);
-  const [advisorsData, setAdvisorsData] = useState(() => {
-    const storedData = localStorage.getItem("advisorsData");
-    return storedData ? JSON.parse(storedData) : [];
-  });
+  const unassignedAdvisors = dbData.advisors.filter(
+    (advisor) => !advisor.assignedClass
+  );
 
-  const thead = useMemo(() => {
-    return [
-      { name: "Reg#" },
-      {
-        name: "Name",
-      },
-      {
-        name: "Email",
-      },
-      {
-        name: "Password",
-      },
-      {
-        name: "",
-      },
-    ];
-  }, []);
-  const theadForAdvisors = useMemo(() => {
-    return [
-      {
-        name: "Name",
-      },
-      {
-        name: "Email",
-      },
+  const handleSelectAdvisor = (advisorId) => {
+    const selectedAdvisor = unassignedAdvisors.find(
+      (advisor) => advisor.id === advisorId
+    );
 
-      {
-        name: "",
-      },
-    ];
-  }, []);
+    const updatedClassData = {
+      ...classData,
+      advisor: { ...selectedAdvisor, assignedClass: classData.id },
+    };
 
-  const togglePopup = useCallback(() => setShowPopup((prev) => !prev), []);
+    setClassData(updatedClassData);
 
-  const extractDataForTable = (data) => {
-    return data.map((item) => ({
-      name: item.name,
-      email: item.email,
-    }));
+    const updatedDbData = {
+      ...dbData,
+      classes: dbData.classes.map((cls) =>
+        cls.id === classData.id ? updatedClassData : cls
+      ),
+      advisors: dbData.advisors.map((user) =>
+        user.id === advisorId ? { ...user, assignedClass: classData.id } : user
+      ),
+    };
+
+    setdbData(updatedDbData); // Persist the changes in dbData
+    togglePopup(); // Close the popup
   };
-
   return (
     <DashboardLayout>
       <div className="w-full flex justify-between items-center">
-        <h2 className="text-2xl font-semibold mb-4">{classData.className}</h2>
-
-        {/* Button Starts */}
+        <h2 className="text-2xl font-semibold mb-4">{classData?.classname}</h2>
         <div className="relative">
-          <MagicButton title={"Assign Advisor"} handleClick={togglePopup} />
+          {classData?.advisor ? (
+            <MagicButton
+              title="Upload Class Result"
+              handleClick={togglePopup}
+            />
+          ) : (
+            <MagicButton title="Assign Advisor" handleClick={togglePopup} />
+          )}
 
           {showPopup && (
-            <div className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 py-10 max-h-[75%] overflow-y-auto">
-              <Table
-                data={extractDataForTable(advisorsData[0])}
-                thead={theadForAdvisors}
-                title="Available Advisors"
-                key="Available Advisors"
-                payloadAction={true}
-                titleofButton={"Confirm Advisor"}
-              />
-            </div>
+            <>
+              <div className="absolute mt-2 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-50">
+                <ul className="py-1">
+                  {unassignedAdvisors?.length > 0 ? (
+                    unassignedAdvisors?.map((advisor, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleSelectAdvisor(advisor.id)}
+                        className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+                      >
+                        {advisor.name}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="px-4 py-2">
+                      No available advisors. Visit the{" "}
+                      <Link
+                        href="/manage-advisor"
+                        className="underline font-medium"
+                      >
+                        Manage Advisors Page
+                      </Link>
+                    </li>
+                  )}
+                </ul>
+              </div>
+              <Overlay />
+            </>
           )}
         </div>
-        {/* Button Ends */}
-
-        {showPopup && <Overlay handleClick={togglePopup} />}
       </div>
-      <Table
-        data={classData.students || []}
-        thead={thead}
-        title={classData.className}
-        key={classData.className}
-      />
+
+      {classData?.students?.length > 0 ? (
+        <Table
+          data={classData?.students}
+          title={`Students of ${classData?.classname}`}
+          key={`students-${classData?.classId}`}
+        />
+      ) : (
+        <p className="text-gray-500">No students found for this class.</p>
+      )}
     </DashboardLayout>
   );
 };

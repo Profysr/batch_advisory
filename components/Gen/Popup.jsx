@@ -1,47 +1,88 @@
-const Popup = ({ setShowPopup, setUploadedData }) => {
-  const delay = (ms = 500) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+import { useAppContext } from "@/context/AppContext";
+import Loader from "./Loader";
+
+const PopComponent = ({ handleFileUpload }) => {
+  const {
+    isLoading,
+    setIsLoading,
+    isDragging,
+    setIsDragging,
+    setShowPopup,
+    handleDragOver,
+    handleDragLeave,
+    handleDivClick,
+  } = useAppContext();
+
+  const handleFileDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragging(false);
+
+    const file = event.dataTransfer.files[0];
+    processFile(file);
   };
 
-  const handleFileUpload = (files) => {
-    const file = files[0];
-    const reader = new FileReader();
+  const handleFileInput = (event) => {
+    const file = event.target.files[0];
+    processFile(file);
+  };
 
-    reader.onload = async (event) => {
-      const fileContent = event.target.result;
-      let data = await JSON.parse(fileContent);
+  const processFile = (file) => {
+    if (file && file.type === "application/json") {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsedData = JSON.parse(e.target.result);
 
-      setUploadedData((prev) => [...prev, data]);
-      await delay();
-      setShowPopup(false);
-    };
-    reader.readAsText(file);
+          setIsLoading(true);
+          setTimeout(() => {
+            handleFileUpload(parsedData);
+            setIsLoading(false);
+            setShowPopup(false);
+          }, 2000);
+        } catch (err) {
+          alert("Invalid JSON file!");
+        }
+      };
+      reader.readAsText(file);
+    } else {
+      alert("Please upload a valid JSON file!");
+    }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative p-6 bg-white rounded-lg shadow-lg h-1/2">
-        {/* Close Button */}
-        <button
-          onClick={() => setShowPopup(false)}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-        >
-          ✖
-        </button>
+    <div className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 w-96 h-auto grid place-items-center">
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <h2 className="text-sm my-3">Upload JSON File for Students</h2>
+          <div
+            onDrop={handleFileDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onClick={handleDivClick}
+            className={`p-4 text-sm text-center w-full h-24 border-2 border-dashed ${
+              isDragging ? "border-blue-400 bg-blue-100" : "border-gray-300"
+            } flex items-center justify-center rounded-md cursor-pointer`}
+          >
+            <span className="text-gray-500">
+              Drag and drop a JSON file here or click to choose
+            </span>
+          </div>
 
-        <h2 className="mb-4 text-xl font-semibold text-center">Upload Files</h2>
-
-        {/* File Input */}
-        <div className="mb-4">
+          {/* Hidden File Input */}
           <input
+            id="fileInput"
             type="file"
-            onChange={(e) => handleFileUpload(e.target.files)}
-            className="block w-full px-3 py-2 border rounded-md"
+            accept="application/json"
+            onChange={handleFileInput}
+            className="hidden"
           />
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };
 
-export default Popup;
+export default PopComponent;

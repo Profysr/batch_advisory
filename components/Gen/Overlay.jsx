@@ -1,10 +1,12 @@
+import { useAppContext } from "@/context/AppContext";
 import React from "react";
 
-const Overlay = ({ handleClick }) => {
+const Overlay = () => {
+  const { isSidebarOpen, toggleSidebar, togglePopup } = useAppContext();
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 z-40"
-      onClick={handleClick}
+      onClick={isSidebarOpen ? toggleSidebar : togglePopup}
     />
   );
 };

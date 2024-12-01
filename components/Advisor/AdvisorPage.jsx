@@ -1,14 +1,15 @@
 "use client";
 import DashboardLayout from "@/layout/DashboardLayout";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Table from "../Gen/Table";
 
 const AdvisorPage = () => {
   const assignedClass = "SP21-BSE-8A";
 
   const [classData, setClassData] = useState(() => {
-    const storedData = JSON.parse(localStorage.getItem("classData"));
-    const selectedClass = storedData.find((classItem) =>
+    const storedData = localStorage.getItem("classData");
+
+    const selectedClass = JSON.parse(storedData).find((classItem) =>
       classItem.className.toLowerCase().includes(assignedClass.toLowerCase())
     );
 

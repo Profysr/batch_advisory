@@ -81,3 +81,34 @@ export let classDetails = [
     advisorName: "abc",
   },
 ];
+
+export const User = [
+  {
+    userId: "adv1",
+    role: "advisor",
+    name: "Bilal",
+    email: "bilal@gmail.com",
+    password: "123",
+  },
+  {
+    userId: "adv2",
+    role: "advisor",
+    name: "Saad",
+    email: "saad@gmail.com",
+    password: "123",
+  },
+  {
+    userId: "adm1",
+    role: "admin",
+    name: "Ammar",
+    email: "ammar@gmail.com",
+    password: "123",
+  },
+  {
+    userId: "st1",
+    role: "student",
+    name: "Javid",
+    email: "javid@gmail.com",
+    password: "123",
+  },
+];

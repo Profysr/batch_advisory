@@ -2,61 +2,21 @@
   {
     "name": "Bilal Ahmad",
     "email": "bilalahmad@teacher.cuisahiwal.edu.pk",
-    "password": "12345678",
-    "assignedClass": "BSCS-6A"
+    "password": "12345678"
   },
   {
     "name": "Ayesha Khan",
     "email": "ayeshakhan@teacher.cuisahiwal.edu.pk",
-    "password": "password123",
-    "assignedClass": "BSCS-6A"
+    "password": "password123"
   },
   {
     "name": "Ahmed Ali",
     "email": "ahmedali@teacher.cuisahiwal.edu.pk",
-    "password": "abcdef12",
-    "assignedClass": "BSCS-6A"
+    "password": "abcdef12"
   },
   {
     "name": "Sara Malik",
     "email": "saramalik@teacher.cuisahiwal.edu.pk",
-    "password": "qwerty789",
-    "assignedClass": "BSCS-6A"
-  },
-  {
-    "name": "Usman Tariq",
-    "email": "usmantariq@teacher.cuisahiwal.edu.pk",
-    "password": "98765432",
-    "assignedClass": "BSCS-6A"
-  },
-  {
-    "name": "Fatima Zahra",
-    "email": "fatimazahra@teacher.cuisahiwal.edu.pk",
-    "password": "pass0987",
-    "assignedClass": "BSCS-6A"
-  },
-  {
-    "name": "Ali Hassan",
-    "email": "alihassan@teacher.cuisahiwal.edu.pk",
-    "password": "pass1234",
-    "assignedClass": "BSCS-6A"
-  },
-  {
-    "name": "Mariam Nawaz",
-    "email": "mariannawaz@teacher.cuisahiwal.edu.pk",
-    "password": "zxcvbnm1",
-    "assignedClass": "BSCS-6A"
-  },
-  {
-    "name": "Hassan Raza",
-    "email": "hassanraza@teacher.cuisahiwal.edu.pk",
-    "password": "asdfgh12",
-    "assignedClass": "BSCS-6A"
-  },
-  {
-    "name": "Zainab Tariq",
-    "email": "zainabtariq@teacher.cuisahiwal.edu.pk",
-    "password": "password01",
-    "assignedClass": "BSCS-6A"
+    "password": "qwerty789"
   }
 ]

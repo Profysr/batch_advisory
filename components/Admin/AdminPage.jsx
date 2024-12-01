@@ -5,18 +5,27 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import EmptyPage from "../Gen/EmptyPage";
 import MagicButton from "../Gen/Button";
+import WelcomeComponent from "../Gen/WelcomeComponent";
 
 const HomepageMetrics = () => {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
-    // Function to calculate metrics
     const calculateMetrics = () => {
-      const classData = JSON.parse(localStorage.getItem("classData") || "[]");
-      const advisorsData = JSON.parse(
-        localStorage.getItem("advisorsData") || "[]"
-      );
+      const classData = (() => {
+        const data = localStorage.getItem("classData");
+        return data ? JSON.parse(data) : null;
+      })();
 
+      const advisorsData = (() => {
+        const data = localStorage.getItem("advisorsData");
+        return data ? JSON.parse(data) : null;
+      })();
+
+      if (!classData || !advisorsData) {
+        console.log("Class data or advisors data is missing.");
+        return [];
+      }
       // Calculating totals
       const totalClasses = classData.length;
       const totalBatchAdvisors = advisorsData[0].length;
@@ -123,14 +132,18 @@ const HomepageMetrics = () => {
     <DashboardLayout>
       {metrics.length === 0 ? (
         <div className="w-full flex flex-col gap-4 justify-center items-center">
+          <WelcomeComponent />
+
           <EmptyPage />
-          <Link href={"/admin/manage-classes"}>
+          <Link href={"/manage-classes"}>
             <MagicButton title="Go to Add Class Page" />
           </Link>
         </div>
       ) : (
         <>
-          <h2 className="text-3xl font-bold mb-10">Admin Dashboard</h2>
+          {/* <h2 className="text-3xl font-bold mb-10">Admin Dashboard</h2> */}
+          <WelcomeComponent />
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {metrics.map((metric, index) => (
               <div

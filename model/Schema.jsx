@@ -33,7 +33,7 @@ const courseSchema = new Schema({
 
 const advisorSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Link to User model
-  assignedClass: [{ type: Schema.Types.ObjectId, ref: "Class" }], // Classes managed by the advisor
+  assignedClass: { type: Schema.Types.ObjectId, ref: "Class", required: true }, // Single assigned class
 });
 
 const studentSchema = new Schema({

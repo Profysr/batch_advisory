@@ -9,9 +9,10 @@ const DashboardLayout = ({ children, otherClasses }) => {
         <div className="relative">
           <div className="w-full h-full max-w-screen-xl mx-auto px-4 py-12">
             <div
-              className={`flex flex-col gap-8 justify-center items-center ${
+              className={`flex flex-col  justify-center items-center ${
                 otherClasses ? otherClasses : ""
               }`}
+              style={{ gap: "2rem" }}
             >
               {children}
             </div>

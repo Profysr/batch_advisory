@@ -4,7 +4,12 @@ import { cookies } from "next/headers";
 import { decrypt } from "./helper/session";
 
 // 1. Specify protected and public routes
-const protectedRoutes = ["/admin", "/student", "/advisor", "/"];
+const protectedRoutes = [
+  "/",
+  "/manage-classes",
+  "/manage-sos",
+  "/manage-advisor",
+];
 const publicRoutes = ["/login"];
 
 export default async function middleware(req) {

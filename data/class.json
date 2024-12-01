@@ -1,32 +1,35 @@
 {
-  "className": "SP21-BSE-8A",
-  "department": "Computer Science",
-  "semester": "Spring 2021",
-  "advisor": {
-    "name": "Ms. Mubeen",
-    "email": "mubeen@gmail.com"
-  },
+  "classname": "SP21-BSE-8A",
   "students": [
     {
-      "id": 1,
-      "name": "Bilal",
-      "email": "bilal@student.university.edu",
-      "password": 123,
-      "type": "regular"
+      "regNo": "sp21-bse-001",
+      "name": "haseeb",
+      "email": "haseeb@gmail.com",
+      "password": "123abc@456"
     },
     {
-      "id": 2,
-      "name": "Saad",
-      "email": "jane.smith@student.university.edu",
-      "password": 123,
-      "type": "repeater"
+      "regNo": "sp21-bse-002",
+      "name": "afifa",
+      "email": "afifa@gmail.com",
+      "password": "123abc@456"
     },
     {
-      "id": 3,
-      "name": "Javid",
-      "email": "mike.brown@student.university.edu",
-      "password": 123,
-      "type": "regular"
+      "regNo": "sp21-bse-003",
+      "name": "anamta",
+      "email": "anamta@gmail.com",
+      "password": "123abc@456"
+    },
+    {
+      "regNo": "sp21-bse-044",
+      "name": "abuzar",
+      "email": "abuzar@gmail.com",
+      "password": "123abc@456"
+    },
+    {
+      "regNo": "sp21-bse-033",
+      "name": "ammar",
+      "email": "ammar@gmail.com",
+      "password": "123abc@456"
     }
   ]
 }

@@ -1,17 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
 import MagicButton from "./Button";
 import { logoutSession } from "@/helper/actions";
-import { getUserRole } from "@/helper/utility";
 import Overlay from "./Overlay";
+import { useAppContext } from "@/context/AppContext";
 
 const Header = () => {
   const userRole = "admin";
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const { isSidebarOpen, toggleSidebar } = useAppContext();
 
-  // Define navigation menus for each role
   const menus = {
     admin: [
       {
@@ -45,17 +43,9 @@ const Header = () => {
   // Select menu based on the user role
   const navigationMenu = menus[userRole] || defaultMenu;
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
-
   const handleClick = () => {
     logoutSession();
-    setSidebarOpen(false);
+    toggleSidebar();
   };
 
   return (
@@ -85,7 +75,7 @@ const Header = () => {
                 <Link
                   className="block w-full p-2 text-center md:p-1 md:w-auto  hover:text-gray-500"
                   href={item.href}
-                  onClick={() => setSidebarOpen(false)} // Close sidebar on link click
+                  onClick={toggleSidebar} // Close sidebar on link click
                 >
                   {item.name}
                 </Link>

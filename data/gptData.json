@@ -1,0 +1,97 @@
+{
+  "users": [
+    {
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "name": "Bob Smith",
+      "email": "bob.smith@example.com",
+      "password": "advisor123",
+      "role": "advisor",
+      "assignedClass": "64ac89b4c1a57a001adcf431"
+    },
+    {
+      "name": "Charlie Brown",
+      "email": "charlie.brown@example.com",
+      "password": "student123",
+      "role": "student",
+      "assignedClass": "64ac89b4c1a57a001adcf431",
+      "batchAdvisor": "64ac89b4c1a57a001adcf432"
+    }
+  ],
+  "classes": [
+    {
+      "className": "BSCS 2021",
+      "department": "Computer Science",
+      "semester": "Fall 2024",
+      "advisor": "64ac89b4c1a57a001adcf432",
+      "students": ["64ac89b4c1a57a001adcf433", "64ac89b4c1a57a001adcf434"],
+      "courses": ["64ac89b4c1a57a001adcf435", "64ac89b4c1a57a001adcf436"]
+    }
+  ],
+  "courses": [
+    {
+      "courseName": "Data Structures",
+      "courseCode": "CS201",
+      "preRequisites": ["CS101"],
+      "assignedClass": "64ac89b4c1a57a001adcf431"
+    },
+    {
+      "courseName": "Operating Systems",
+      "courseCode": "CS301",
+      "preRequisites": ["CS201"],
+      "assignedClass": "64ac89b4c1a57a001adcf431"
+    }
+  ],
+  "advisors": [
+    {
+      "user": "64ac89b4c1a57a001adcf432",
+      "assignedClass": "64ac89b4c1a57a001adcf431"
+    }
+  ],
+  "students": [
+    {
+      "user": "64ac89b4c1a57a001adcf433",
+      "class": "64ac89b4c1a57a001adcf431",
+      "assignedCourses": [
+        "64ac89b4c1a57a001adcf435",
+        "64ac89b4c1a57a001adcf436"
+      ],
+      "previousResults": [
+        {
+          "course": "64ac89b4c1a57a001adcf435",
+          "grade": "A",
+          "status": "passed"
+        },
+        {
+          "course": "64ac89b4c1a57a001adcf436",
+          "grade": "B",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "user": "64ac89b4c1a57a001adcf434",
+      "class": "64ac89b4c1a57a001adcf431",
+      "assignedCourses": [
+        "64ac89b4c1a57a001adcf435",
+        "64ac89b4c1a57a001adcf436"
+      ],
+      "previousResults": [
+        {
+          "course": "64ac89b4c1a57a001adcf435",
+          "grade": "C",
+          "status": "failed"
+        },
+        {
+          "course": "64ac89b4c1a57a001adcf436",
+          "grade": "A",
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}
