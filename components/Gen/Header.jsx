@@ -9,13 +9,13 @@ import { useSession } from "@/context/SessionContext";
 
 const Header = () => {
   const { session } = useSession();
+  const { isSidebarOpen, toggleSidebar } = useAppContext();
 
   if (!session) {
     return null; // No header for unauthenticated users
   }
 
-  const { userRole } = session;
-  const { isSidebarOpen, toggleSidebar } = useAppContext();
+  const { role } = session;
 
   const menus = {
     admin: [
@@ -24,12 +24,12 @@ const Header = () => {
         href: "/",
       },
       {
-        name: "Manage Classes",
-        href: "/manage-classes",
-      },
-      {
         name: "Manage Advisors",
         href: "/manage-advisor",
+      },
+      {
+        name: "Manage Classes",
+        href: "/manage-classes",
       },
       {
         name: "Manage SOS",
@@ -44,7 +44,7 @@ const Header = () => {
   const defaultMenu = [{ label: "Home", path: "/" }];
 
   // Select menu based on the user role
-  const navigationMenu = menus[userRole] || defaultMenu;
+  const navigationMenu = menus[role] || defaultMenu;
 
   const handleClick = () => {
     logoutSession();

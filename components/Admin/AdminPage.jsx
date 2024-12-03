@@ -16,6 +16,7 @@ const AdminPage = () => {
     const calculateMetrics = () => {
       const classData = dbData.classes; // Assuming dbData has a classes property
       const advisorsData = dbData.advisors; // Assuming dbData has an advisors property
+      const schemeOfStudy = dbData.schemeOfStudy;
 
       if (!classData || !advisorsData) {
         console.log("Class data or advisors data is missing.");
@@ -25,6 +26,7 @@ const AdminPage = () => {
       // Calculating totals
       const totalClasses = classData.length;
       const totalBatchAdvisors = advisorsData.length;
+      const totalSchemeOfStudies = schemeOfStudy.length;
 
       const totalStudents = classData.reduce(
         (sum, item) => sum + (item.students?.length || 0),
@@ -77,7 +79,7 @@ const AdminPage = () => {
         },
         {
           title: "Uploaded SOS",
-          count: 1, // You can adjust this based on your data
+          count: totalSchemeOfStudies, // You can adjust this based on your data
           svg: (
             <svg
               className="w-6 h-6 text-gray-600"

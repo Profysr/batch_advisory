@@ -1,4 +1,5 @@
 "use client";
+
 // app/page.js
 import AdminPage from "@/components/Admin/AdminPage";
 import AdvisorPage from "@/components/Advisor/AdvisorPage";
@@ -13,7 +14,8 @@ export default function page() {
     return <div>Please log in to access this page.</div>;
   }
 
-  switch (session.userRole) {
+  // userRole
+  switch (session.role) {
     case "admin":
       return <AdminPage />;
     case "advisor":
@@ -25,7 +27,7 @@ export default function page() {
         <div className="grid place-items-center text-lg font-medium">
           Unauthorized Access.
           <p>
-            Return to{" "}
+            Return to
             <Link className="underline" href={"/auth"}>
               Login
             </Link>

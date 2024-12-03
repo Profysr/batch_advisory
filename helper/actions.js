@@ -2,77 +2,34 @@
 
 import { redirect } from "next/navigation";
 import { createSession, deleteSession } from "./session";
-// import { findUserByEmail } from "./utility";
+import fs from "fs/promises";
+import path from "path";
 
-export const simplifiedUsers = () => {
-  const db = JSON.parse(localStorage.getItem("dbData") || {});
+export const loginFn = async (prevState, formData) => {
+  const userData = {
+    email: formData.get("email").trim(),
+    password: formData.get("password").trim(),
+  };
+
+  const dbPath = path.join(process.cwd(), "db.json");
+
+  const data = JSON.parse(await fs.readFile(dbPath, "utf-8"));
+
   const users = [
-    ...db.students.map((student) => ({
-      ...student,
-      role: "student",
-    })),
-    ...db.advisors.map((advisor) => ({
-      ...advisor,
-      role: "advisor",
-    })),
-    ...db.admins.map((admin) => ({
-      ...admin,
-      role: "admin",
-    })),
+    ...data.students.map((student) => ({ ...student, role: "student" })),
+    ...data.advisors.map((advisor) => ({ ...advisor, role: "advisor" })),
+    ...data.admins.map((admin) => ({ ...admin, role: "admin" })),
   ];
 
-  // return users.map((user) => ({
-  //   id: user.id,
-  //   email: user.email,
-  //   password: user.password,
-  //   role: user.role,
-  // }));
-  return users;
-};
+  const user = users.find((user) => user.email === userData.email);
 
-export const loginFn = async (formData) => {
-  const { email, password } = formData;
-
-  const users = simplifiedUsers(); // Access the users array
-  const user = users.find((user) => user.email === email);
-
-  if (!user || user.password !== password) {
+  if (!user || user.password !== userData.password) {
     return { errors: { email: ["Invalid email or password"] } };
   }
 
-  await createSession(user.id, user.role);
+  await createSession(user);
   redirect("/");
 };
-
-// export const loginFn = async (prevState, formData) => {
-//   const validatedFields = LoginFormSchema.safeParse({
-//     email: formData.get("email"),
-//     password: formData.get("password"),
-//   });
-
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//     };
-//   }
-
-//   // getting users
-
-//   // logic
-//   const { email, password } = validatedFields.data;
-//   const user = findUserByEmail(email);
-
-//   if (!user || user.password !== password) {
-//     return {
-//       errors: {
-//         email: ["Invalid email or password"],
-//       },
-//     };
-//   }
-
-//   await createSession(user.id, user.role);
-//   redirect("/");
-// };
 
 export async function logoutSession() {
   await deleteSession();

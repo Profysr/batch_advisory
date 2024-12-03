@@ -13,8 +13,10 @@ const ManageAdvisors = () => {
   const { showPopup, dbData, setdbData, togglePopup } = useAppContext();
 
   const handleFileUpload = (parsedData) => {
-    setdbData((prevDbData) => {
-      const updatedAdvisors = [...prevDbData.advisors];
+    console.log("clicked");
+
+    setdbData((prev) => {
+      const updatedAdvisors = [...prev.advisors];
 
       parsedData.forEach((advisor) => {
         const advisorExists = updatedAdvisors.some(
@@ -33,25 +35,26 @@ const ManageAdvisors = () => {
       });
 
       return {
-        ...prevDbData,
+        ...prev,
         advisors: updatedAdvisors,
       };
     });
   };
 
   const getClassnameById = (classId) => {
-    const classData = dbData.classes.find((cls) => cls.id === classId);
+    const classData = dbData?.classes?.find((cls) => cls.id === classId);
     return classData ? classData.classname : null;
   };
+
   // Map through the advisors and add their class name
-  const advisorsWithClassname = dbData.advisors.map((advisor) => ({
+  const advisorsWithClassname = dbData?.advisors?.map((advisor) => ({
     ...advisor,
     assignedClass: getClassnameById(advisor.assignedClass),
   }));
 
   return (
     <DashboardLayout>
-      {advisorsWithClassname.length > 0 ? (
+      {advisorsWithClassname?.length > 0 ? (
         <Table
           data={advisorsWithClassname}
           title="Batch Advisors"

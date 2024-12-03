@@ -107,124 +107,11 @@ export const ManageClasses = () => {
     </DashboardLayout>
   );
 };
-//   const { showPopup, dbData, togglePopup, setdbData } = useAppContext();
-//   const [showDropDown, setshowDropDown] = useState(false);
-//   const toggleDropDown = useCallback(
-//     () => setshowDropDown((prev) => !prev),
-//     []
-//   );
-
-//   const [classData, setClassData] = useState(() => {
-//     const selectedClass = dbData.classes.find((classItem) =>
-//       classItem.id.toLowerCase().includes(slug.toLowerCase())
-//     );
-
-//     if (!selectedClass) return null;
-
-//     return selectedClass;
-//   });
-
-//   const unassignedAdvisors = dbData.advisors.filter(
-//     (advisor) => !advisor.assignedClass
-//   );
-
-//   const handleSelectAdvisor = (advisorId) => {
-//     const selectedAdvisor = unassignedAdvisors.find(
-//       (advisor) => advisor.id === advisorId
-//     );
-
-//     const updatedClassData = {
-//       ...classData,
-//       advisor: { ...selectedAdvisor, assignedClass: classData.id },
-//     };
-
-//     setClassData(updatedClassData);
-
-//     const updatedDbData = {
-//       ...dbData,
-//       classes: dbData.classes.map((cls) =>
-//         cls.id === classData.id ? updatedClassData : cls
-//       ),
-//       advisors: dbData.advisors.map((user) =>
-//         user.id === advisorId ? { ...user, assignedClass: classData.id } : user
-//       ),
-//     };
-
-//     setdbData(updatedDbData); // Persist the changes in dbData
-//     togglePopup(); // Close the popup
-//   };
-
-//   return (
-//     <DashboardLayout>
-//       <div className="w-full flex justify-between items-center">
-//         <h2 className="text-2xl font-semibold mb-4">{classData?.classname}</h2>
-//         <div className="relative">
-//           {classData?.advisor ? (
-//             <MagicButton
-//               title="Upload Class Result"
-//               handleClick={togglePopup}
-//             />
-//           ) : (
-//             <MagicButton title="Assign Advisor" handleClick={toggleDropDown} />
-//           )}
-
-//           {showDropDown && (
-//             <>
-//               <div className="absolute mt-2 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-50">
-//                 <ul className="py-1">
-//                   {unassignedAdvisors?.length > 0 ? (
-//                     unassignedAdvisors?.map((advisor, index) => (
-//                       <li
-//                         key={index}
-//                         onClick={() => handleSelectAdvisor(advisor.id)}
-//                         className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
-//                       >
-//                         {advisor.name}
-//                       </li>
-//                     ))
-//                   ) : (
-//                     <li className="px-4 py-2">
-//                       No available advisors. Visit the{" "}
-//                       <Link
-//                         href="/manage-advisor"
-//                         className="underline font-medium"
-//                       >
-//                         Manage Advisors Page
-//                       </Link>
-//                     </li>
-//                   )}
-//                 </ul>
-//               </div>
-//               <Overlay />
-//             </>
-//           )}
-
-//           {/* {showPopup && (
-//             <>
-//               <Popup />
-//               <Overlay />
-//             </>
-//           )} */}
-//         </div>
-//       </div>
-
-//       {classData?.students?.length > 0 ? (
-//         <Table
-//           data={classData?.students}
-//           title={`Students of ${classData?.classname}`}
-//           key={`students-${classData?.classId}`}
-//         />
-//       ) : (
-//         <p className="text-gray-500">No students found for this class.</p>
-//       )}
-//     </DashboardLayout>
-//   );
-// };
 
 export const ManageIndividualClass = ({ slug }) => {
   const { showPopup, dbData, togglePopup, setdbData } = useAppContext();
   const [activeDropdown, setActiveDropdown] = useState(null); // "advisor" or "sos"
-  const [notUploaded, setNotUploaded] = useState(null);
+  const [notUploaded, setNotUploaded] = useState(true);
 
   const classData = dbData.classes.find((cls) =>
     cls.id.toLowerCase().includes(slug.toLowerCase())
@@ -353,13 +240,13 @@ export const ManageIndividualClass = ({ slug }) => {
         }
       });
 
-      setNotUploaded(false);
       return {
         ...prev,
         results: updatedResults,
         students: updatedStudents, // Return the updated students data
       };
     });
+    setNotUploaded(false);
   };
 
   return (

@@ -28,7 +28,7 @@ export const SessionProvider = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="fixed bg-red-400 w-full min-h-screen flex justify-center items-center">
+      <div className="fixed w-full min-h-screen flex justify-center items-center">
         <Loader />;
       </div>
     );
