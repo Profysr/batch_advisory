@@ -1,42 +1,21 @@
-import { NextResponse } from "next/server";
-
 import { cookies } from "next/headers";
 import { decrypt } from "./helper/session";
-
-// 1. Specify protected and public routes
-const protectedRoutes = [
-  "/",
-  "/manage-classes",
-  "/manage-sos",
-  "/manage-advisor",
-];
-const publicRoutes = ["/login"];
+import { NextResponse } from "next/server";
 
 export default async function middleware(req) {
-  // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path);
-  const isPublicRoute = publicRoutes.includes(path);
+  const publicRoutes = ["/auth"];
 
-  // 3. Decrypt the session from the cookie
+  if (publicRoutes.includes(path)) {
+    return NextResponse.next();
+  }
+
   const cookie = (await cookies()).get("session")?.value;
   const session = await decrypt(cookie);
 
-  // 5. Redirect to /login if the user is not authenticated
-  if (isProtectedRoute && !session?.userId) {
+  if (!session) {
     return NextResponse.redirect(new URL("/auth", req.nextUrl));
   }
-
-  // 6. Redirect to /dashboard if the user is authenticated
-  if (
-    isPublicRoute &&
-    session?.userId &&
-    !req.nextUrl.pathname.startsWith("/")
-  ) {
-    return NextResponse.redirect(new URL("/", req.nextUrl));
-  }
-
-  console.log("Middleware Run");
 
   return NextResponse.next();
 }

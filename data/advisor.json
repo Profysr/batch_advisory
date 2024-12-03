@@ -1,22 +1,12 @@
 [
   {
-    "name": "Bilal Ahmad",
-    "email": "bilalahmad@teacher.cuisahiwal.edu.pk",
-    "password": "12345678"
+    "name": "Mubeen Javid",
+    "email": "mubeenjavid12@teacher.cuisahiwal.edu.pk",
+    "password": "adv123"
   },
   {
-    "name": "Ayesha Khan",
-    "email": "ayeshakhan@teacher.cuisahiwal.edu.pk",
-    "password": "password123"
-  },
-  {
-    "name": "Ahmed Ali",
-    "email": "ahmedali@teacher.cuisahiwal.edu.pk",
-    "password": "abcdef12"
-  },
-  {
-    "name": "Sara Malik",
-    "email": "saramalik@teacher.cuisahiwal.edu.pk",
-    "password": "qwerty789"
+    "name": "Madeeha Fatima",
+    "email": "madeehafatima12@teacher.cuisahiwal.edu.pk",
+    "password": "adv123"
   }
 ]

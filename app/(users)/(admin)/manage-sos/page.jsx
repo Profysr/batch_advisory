@@ -1,4 +1,4 @@
-import ManageSos from "@/components/Admin/ManageSos";
+import { ManageSos } from "@/components/Admin/ManageSos";
 import React from "react";
 
 const page = () => {

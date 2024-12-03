@@ -1,34 +1,30 @@
 "use client";
 
-import DashboardLayout from "@/layout/DashboardLayout";
+import DashboardLayout from "@/layout/PreLayout";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import EmptyPage from "../Gen/EmptyPage";
 import MagicButton from "../Gen/Button";
-import WelcomeComponent from "../Gen/WelcomeComponent";
+import { useAppContext } from "@/context/AppContext";
+import WelcomeComponent from "../Gen/Welcome";
 
-const HomepageMetrics = () => {
+const AdminPage = () => {
+  const { dbData } = useAppContext();
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
     const calculateMetrics = () => {
-      const classData = (() => {
-        const data = localStorage.getItem("classData");
-        return data ? JSON.parse(data) : null;
-      })();
-
-      const advisorsData = (() => {
-        const data = localStorage.getItem("advisorsData");
-        return data ? JSON.parse(data) : null;
-      })();
+      const classData = dbData.classes; // Assuming dbData has a classes property
+      const advisorsData = dbData.advisors; // Assuming dbData has an advisors property
 
       if (!classData || !advisorsData) {
         console.log("Class data or advisors data is missing.");
         return [];
       }
+
       // Calculating totals
       const totalClasses = classData.length;
-      const totalBatchAdvisors = advisorsData[0].length;
+      const totalBatchAdvisors = advisorsData.length;
 
       const totalStudents = classData.reduce(
         (sum, item) => sum + (item.students?.length || 0),
@@ -81,7 +77,7 @@ const HomepageMetrics = () => {
         },
         {
           title: "Uploaded SOS",
-          count: 1,
+          count: 1, // You can adjust this based on your data
           svg: (
             <svg
               className="w-6 h-6 text-gray-600"
@@ -126,14 +122,13 @@ const HomepageMetrics = () => {
 
     // Calculate and set metrics
     setMetrics(calculateMetrics());
-  }, []);
+  }, [dbData]); // Re-run when dbData changes
 
   return (
     <DashboardLayout>
       {metrics.length === 0 ? (
         <div className="w-full flex flex-col gap-4 justify-center items-center">
           <WelcomeComponent />
-
           <EmptyPage />
           <Link href={"/manage-classes"}>
             <MagicButton title="Go to Add Class Page" />
@@ -141,9 +136,7 @@ const HomepageMetrics = () => {
         </div>
       ) : (
         <>
-          {/* <h2 className="text-3xl font-bold mb-10">Admin Dashboard</h2> */}
           <WelcomeComponent />
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {metrics.map((metric, index) => (
               <div
@@ -170,4 +163,4 @@ const HomepageMetrics = () => {
   );
 };
 
-export default HomepageMetrics;
+export default AdminPage;

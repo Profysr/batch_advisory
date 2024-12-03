@@ -95,3 +95,30 @@ export const DynamicTextarea = ({
     </div>
   );
 };
+
+export const Dropdown = ({ items, onSelect, noItemsText, manageLink }) => (
+  <div className="absolute mt-2 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-50">
+    <ul className="py-1">
+      {items?.length > 0 ? (
+        items.map((item) => (
+          <li
+            key={item.id}
+            onClick={() => onSelect(item.id)}
+            className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+          >
+            {item.name}
+          </li>
+        ))
+      ) : (
+        <li className="px-4 py-2">
+          {noItemsText}.{" "}
+          {manageLink && (
+            <Link href={manageLink} className="underline font-medium">
+              Manage Here
+            </Link>
+          )}
+        </li>
+      )}
+    </ul>
+  </div>
+);

@@ -1,21 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useAppContext } from "@/context/AppContext";
 
 const TableComponent = ({
   data,
   title,
-  actionBtn,
-  actionBtnTitle,
+  actionBtns,
   checkBoxOption = false,
 }) => {
-  const [selectedRows, setSelectedRows] = useState([]);
-
-  const handleCheckboxChange = (id) => {
-    setSelectedRows((prev) =>
-      prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]
-    );
-  };
+  const { selectedRows, handleCheckboxChange } = useAppContext();
 
   return (
     <div
@@ -27,21 +20,7 @@ const TableComponent = ({
         <div className="text-lg tracking-wide leading-relaxed text-center capitalize">
           {title}
         </div>
-        {checkBoxOption && selectedRows.length > 0 && (
-          <div className="flex gap-3">
-            <button className="bg-yellow-600 text-white text-sm  px-4 py-2 rounded-sm">
-              Edit
-            </button>
-            <button className="bg-red-700 text-white text-sm  px-4 py-2 rounded-sm">
-              Delete
-            </button>
-          </div>
-        )}
-        {actionBtn && (
-          <button className="inline-flex h-full cursor-pointer items-center justify-center rounded-[4px] bg-slate-950 px-6 py-2 text-sm text-white">
-            {actionBtnTitle}
-          </button>
-        )}
+        {checkBoxOption && <div>{actionBtns}</div>}
       </div>
 
       <TableGrid
@@ -144,7 +123,7 @@ export const Tr = ({
       )}
 
       {Object.entries(data)
-        .filter(([key]) => !excludeKeys.includes(key))
+        .filter(([key]) => !excludeKeys.includes(key.toLowerCase()))
         .map(([key, value], index) => (
           <td key={index} className="w-max whitespace-nowrap">
             <div className="px-6 py-3">

@@ -5,9 +5,16 @@ import MagicButton from "./Button";
 import { logoutSession } from "@/helper/actions";
 import Overlay from "./Overlay";
 import { useAppContext } from "@/context/AppContext";
+import { useSession } from "@/context/SessionContext";
 
 const Header = () => {
-  const userRole = "admin";
+  const { session } = useSession();
+
+  if (!session) {
+    return null; // No header for unauthenticated users
+  }
+
+  const { userRole } = session;
   const { isSidebarOpen, toggleSidebar } = useAppContext();
 
   const menus = {
@@ -29,11 +36,7 @@ const Header = () => {
         href: "/manage-sos",
       },
     ],
-    advisor: [
-      { label: "Dashboard", path: "/advisor/dashboard" },
-      { label: "My Classes", path: "/advisor/classes" },
-      { label: "Schedule", path: "/advisor/schedule" },
-    ],
+    advisor: [{ label: "Home", path: "/" }],
     student: [],
   };
 

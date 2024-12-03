@@ -2,37 +2,77 @@
 
 import { redirect } from "next/navigation";
 import { createSession, deleteSession } from "./session";
-import { findUserByEmail, LoginFormSchema } from "./utility";
+// import { findUserByEmail } from "./utility";
 
-export const loginFn = async (prevState, formData) => {
-  const validatedFields = LoginFormSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+export const simplifiedUsers = () => {
+  const db = JSON.parse(localStorage.getItem("dbData") || {});
+  const users = [
+    ...db.students.map((student) => ({
+      ...student,
+      role: "student",
+    })),
+    ...db.advisors.map((advisor) => ({
+      ...advisor,
+      role: "advisor",
+    })),
+    ...db.admins.map((admin) => ({
+      ...admin,
+      role: "admin",
+    })),
+  ];
 
-  // If any form fields are invalid, return early
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
+  // return users.map((user) => ({
+  //   id: user.id,
+  //   email: user.email,
+  //   password: user.password,
+  //   role: user.role,
+  // }));
+  return users;
+};
 
-  // extracting email and password
-  const { email, password } = validatedFields.data;
-  const user = findUserByEmail(email);
+export const loginFn = async (formData) => {
+  const { email, password } = formData;
 
-  // check if user is not available or password is wrong
+  const users = simplifiedUsers(); // Access the users array
+  const user = users.find((user) => user.email === email);
+
   if (!user || user.password !== password) {
-    return {
-      errors: {
-        email: ["Invalid email or password"],
-      },
-    };
+    return { errors: { email: ["Invalid email or password"] } };
   }
 
   await createSession(user.id, user.role);
   redirect("/");
 };
+
+// export const loginFn = async (prevState, formData) => {
+//   const validatedFields = LoginFormSchema.safeParse({
+//     email: formData.get("email"),
+//     password: formData.get("password"),
+//   });
+
+//   if (!validatedFields.success) {
+//     return {
+//       errors: validatedFields.error.flatten().fieldErrors,
+//     };
+//   }
+
+//   // getting users
+
+//   // logic
+//   const { email, password } = validatedFields.data;
+//   const user = findUserByEmail(email);
+
+//   if (!user || user.password !== password) {
+//     return {
+//       errors: {
+//         email: ["Invalid email or password"],
+//       },
+//     };
+//   }
+
+//   await createSession(user.id, user.role);
+//   redirect("/");
+// };
 
 export async function logoutSession() {
   await deleteSession();

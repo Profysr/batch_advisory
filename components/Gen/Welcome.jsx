@@ -1,4 +1,9 @@
+import { useSession } from "@/context/SessionContext";
+
 const WelcomeComponent = () => {
+  const { session } = useSession();
+  console.log(session);
+
   return (
     <div className="w-full flex justify-center items-center mb-8">
       <h1 className="text-2xl font-light text-center">

@@ -1,8 +1,4 @@
-import { users } from "@/data/users";
-import { z } from "zod";
-
 export const generateRandomColor = () => {
-  // Generate a random color
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);
@@ -18,25 +14,43 @@ export const extractSpecificColumns = (row, cols) => {
   }, {});
 };
 
-// Function to filter users by role
-export const filterUsersByRole = (users, role) => {
-  return users.filter((user) => user.role === role);
+export const simplifiedUsers = () => {
+  const dbData = localStorage.getItem("dbData")
+    ? JSON.parse(localStorage.getItem("dbData"))
+    : false;
+
+  if (!dbData) {
+    console.log("Enable to fetch Users from database");
+    return;
+  }
+
+  const users = [
+    ...dbData.students.map((student) => ({
+      ...student,
+      role: "student",
+    })),
+    ...dbData.advisors.map((advisor) => ({
+      ...advisor,
+      role: "advisor",
+    })),
+    ...dbData.admins.map((admin) => ({
+      ...admin,
+      role: "admin",
+    })),
+  ];
+
+  // Simplified user data
+  // return users.map((user) => ({
+  //   id: user.id,
+  //   name:user.name,
+  //   email: user.email,
+  //   password: user.password,
+  //   role: user.role,
+  // }));
+  return users;
 };
 
-// Simulate fetching user from a database
-export const findUserByEmail = (email) =>
-  users.find((user) => user.email === email);
-
-// Login Form Schema
-export const LoginFormSchema = z.object({
-  email: z.string().email({ message: "Invalid Email and Password" }).trim(),
-  password: z
-    .string()
-    .min(8, { message: "Be at least 8 characters long" })
-    .regex(/[a-zA-Z]/, { message: "Contain at least one letter." })
-    .regex(/[0-9]/, { message: "Contain at least one number." })
-    .regex(/[^a-zA-Z0-9]/, {
-      message: "Contain at least one special character.",
-    })
-    .trim(),
-});
+export const findUserByEmail = (email) => {
+  const users = simplifiedUsers();
+  return users.find((user) => user.email === email);
+};

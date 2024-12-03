@@ -3,7 +3,7 @@
 import MagicButton from "@/components/Gen/Button";
 import EmptyPage from "@/components/Gen/EmptyPage";
 import Table from "@/components/Gen/Table";
-import DashboardLayout from "@/layout/DashboardLayout";
+import DashboardLayout from "@/layout/PreLayout";
 import Popup from "../Gen/Popup";
 import { useAppContext } from "@/context/AppContext";
 import Overlay from "../Gen/Overlay";
@@ -25,7 +25,7 @@ const ManageAdvisors = () => {
           updatedAdvisors.push({
             ...advisor,
             assignedClass: advisor.assignedClass || null,
-            id: `Advisor${uuidv4()}`, // Assign a unique ID to each advisor
+            id: `Advisor${uuidv4()}`,
           });
         } else {
           console.warn(`Advisor with email ${advisor.email} already exists.`);

@@ -1,21 +1,36 @@
+"use client";
+// app/page.js
 import AdminPage from "@/components/Admin/AdminPage";
 import AdvisorPage from "@/components/Advisor/AdvisorPage";
 import StudentPage from "@/components/Student/StudentPage";
-import { verifySession } from "@/helper/dal";
-import { redirect } from "next/navigation";
+import { useSession } from "@/context/SessionContext";
+import Link from "next/link";
 
-const Home = async () => {
-  const { userRole } = await verifySession();
+export default function page() {
+  const { session } = useSession();
 
-  if (userRole === "admin") {
-    return <AdminPage />;
-  } else if (userRole === "advisor") {
-    return <AdvisorPage />;
-  } else if (userRole === "student") {
-    return <StudentPage />;
-  } else {
-    redirect("/auth");
+  if (!session) {
+    return <div>Please log in to access this page.</div>;
   }
-};
 
-export default Home;
+  switch (session.userRole) {
+    case "admin":
+      return <AdminPage />;
+    case "advisor":
+      return <AdvisorPage />;
+    case "student":
+      return <StudentPage />;
+    default:
+      return (
+        <div className="grid place-items-center text-lg font-medium">
+          Unauthorized Access.
+          <p>
+            Return to{" "}
+            <Link className="underline" href={"/auth"}>
+              Login
+            </Link>
+          </p>
+        </div>
+      );
+  }
+}
