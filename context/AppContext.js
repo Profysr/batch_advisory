@@ -5,11 +5,10 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { debounce } from "lodash";
-import Loader from "@/components/Gen/Loader";
-import { useRouter } from "next/navigation";
 
 const AppContext = createContext();
 
@@ -20,124 +19,107 @@ export const AppProvider = ({ children }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const [dbData, setdbData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  const { refresh } = useRouter();
-
-  const togglePopup = () => setShowPopup((prev) => !prev);
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
-
-  const handleDragOver = (event) => {
+  const togglePopup = useCallback(() => setShowPopup((prev) => !prev), []);
+  const toggleSidebar = useCallback(() => setSidebarOpen((prev) => !prev), []);
+  const handleDragOver = useCallback((event) => {
     event.preventDefault();
     setIsDragging(true);
-  };
-
-  const handleDragLeave = (event) => {
+  }, []);
+  const handleDragLeave = useCallback((event) => {
     event.preventDefault();
     setIsDragging(false);
-  };
-
-  // Handle file input trigger when clicking on the div
-  const handleDivClick = useCallback(() => {
-    const fileInput = document.getElementById("fileInput");
-    if (fileInput) {
-      fileInput.click(); // Trigger the file input click
-    }
   }, []);
-
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = (id) =>
     setSelectedRows((prev) =>
       prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]
     );
-  };
+  const handleDivClick = useCallback(() => {
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) fileInput.click();
+  }, []);
 
-  // Fetch initial data from the static file via the API
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
+  const fetchData = useCallback(async () => {
+    if (dbData) return;
+
+    try {
+      const storedData = sessionStorage.getItem("dbData");
+      if (storedData) {
+        setdbData(JSON.parse(storedData));
+      } else {
         const response = await fetch("/api/db");
         if (!response.ok) throw new Error("Failed to fetch data.");
         const data = await response.json();
-
+        sessionStorage.setItem("dbData", JSON.stringify(data));
         setdbData(data);
-      } catch (err) {
-        setError(err.message);
-        console.error("Failed to fetch db.json:", err);
-      } finally {
-        setLoading(false);
       }
-    };
-
-    fetchData();
-  }, []);
-
-  // Save dbData to the file whenever it changes
-  const saveData = debounce(async (data) => {
-    try {
-      await fetch("/api/db", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-    } catch (error) {
-      console.error("Failed to save data:", error);
-    }
-  }, 1000);
-
-  useEffect(() => {
-    if (dbData) {
-      saveData(dbData);
+    } catch (err) {
+      console.error("Failed to fetch db.json:", err);
     }
   }, [dbData]);
 
-  if (loading) {
-    return (
-      <div className="fixed w-full min-h-screen flex justify-center items-center">
-        <Loader />;
-      </div>
-    );
-  }
+  const saveData = useCallback(
+    debounce(async (data) => {
+      try {
+        await fetch("/api/db", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+      } catch (error) {
+        console.error("Failed to post data:", error);
+      }
+    }, 500),
+    []
+  );
 
-  if (error) {
-    return (
-      <div className="fixed w-full min-h-screen flex flex-col justify-center items-center">
-        <p className="text-red-500 text-xl font-medium">Error: {error}</p>
-        <button
-          className="mt-4 px-4 py-2 underline text-black rounded"
-          onClick={refresh}
-        >
-          Retry
-        </button>
-      </div>
-    );
-  }
+  const updateData = (newData) => {
+    setdbData(newData);
+    saveData(newData);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const contextValue = useMemo(
+    () => ({
+      showPopup,
+      setShowPopup,
+      togglePopup,
+      selectedRows,
+      setSelectedRows,
+      handleCheckboxChange,
+      isLoading,
+      setIsLoading,
+      isDragging,
+      setIsDragging,
+      handleDragOver,
+      handleDragLeave,
+      dbData,
+      setdbData: updateData,
+      isSidebarOpen,
+      toggleSidebar,
+      handleDivClick,
+    }),
+    [
+      showPopup,
+      selectedRows,
+      isLoading,
+      isDragging,
+      dbData,
+      isSidebarOpen,
+      togglePopup,
+      toggleSidebar,
+      handleCheckboxChange,
+      handleDragOver,
+      handleDragLeave,
+      handleDivClick,
+    ]
+  );
 
   return (
-    <AppContext.Provider
-      value={{
-        showPopup,
-        setShowPopup,
-        togglePopup,
-        selectedRows,
-        setSelectedRows,
-        handleCheckboxChange,
-        isLoading,
-        setIsLoading,
-        isDragging,
-        setIsDragging,
-        handleDragOver,
-        handleDragLeave,
-        dbData,
-        setdbData,
-        isSidebarOpen,
-        toggleSidebar,
-        handleDivClick,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );
 };
 

@@ -6,16 +6,12 @@ import { logoutSession } from "@/helper/actions";
 import Overlay from "./Overlay";
 import { useAppContext } from "@/context/AppContext";
 import { useSession } from "@/context/SessionContext";
+// import Loader from "./Loader";
 
 const Header = () => {
-  const { session } = useSession();
+  const { memoizedSession } = useSession();
   const { isSidebarOpen, toggleSidebar } = useAppContext();
-
-  if (!session) {
-    return null; // No header for unauthenticated users
-  }
-
-  const { role } = session;
+  const { role } = memoizedSession;
 
   const menus = {
     admin: [
@@ -36,8 +32,11 @@ const Header = () => {
         href: "/manage-sos",
       },
     ],
-    advisor: [{ label: "Home", path: "/" }],
-    student: [],
+    advisor: [
+      { name: "Home", href: "/" },
+      { name: "Assign SOS", href: "/assign-sos" },
+    ],
+    student: [{ name: "Home", href: "/" }],
   };
 
   // Fallback menu if the role is not recognized
@@ -73,12 +72,12 @@ const Header = () => {
           } transition-transform duration-300 w-72 lg:w-1/4 flex items-center`}
         >
           <ul className="flex flex-col items-start gap-6 p-2 w-full">
-            {navigationMenu.map((item, index) => (
+            {navigationMenu?.map((item, index) => (
               <li key={index} className="w-full">
                 <Link
                   className="block w-full p-2 text-center md:p-1 md:w-auto  hover:text-gray-500"
                   href={item.href}
-                  onClick={toggleSidebar} // Close sidebar on link click
+                  onClick={toggleSidebar}
                 >
                   {item.name}
                 </Link>
@@ -118,7 +117,7 @@ const Header = () => {
         </div>
 
         {/* Overlay */}
-        {isSidebarOpen && <Overlay handleClick={toggleSidebar} />}
+        {isSidebarOpen && <Overlay />}
       </nav>
     </header>
   );

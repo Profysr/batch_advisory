@@ -17,6 +17,8 @@ export default async function middleware(req) {
     return NextResponse.redirect(new URL("/auth", req.nextUrl));
   }
 
+  console.log("Middleware Run");
+
   return NextResponse.next();
 }
 

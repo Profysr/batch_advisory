@@ -6,13 +6,13 @@ import { useCallback, useRef, useState } from "react";
 import MagicButton from "@/components/Gen/Button";
 import DashboardLayout from "@/layout/PreLayout";
 import Popup from "../Gen/Popup";
-import Table from "../Gen/Table";
 import Link from "next/link";
 import Overlay from "../Gen/Overlay";
 import { extractSpecificColumns, generateRandomColor } from "@/helper/utility";
 import { useAppContext } from "@/context/AppContext";
 import { Dropdown } from "../Gen/InputField";
 import { v4 as uuidv4 } from "uuid";
+import TableComponent from "../Gen/Table";
 
 export const ManageClasses = () => {
   const { showPopup, dbData, togglePopup, setdbData } = useAppContext();
@@ -303,7 +303,7 @@ export const ManageIndividualClass = ({ slug }) => {
       </div>
 
       {classData?.students?.length > 0 ? (
-        <Table
+        <TableComponent
           data={studentsForTable}
           title={`Students of ${classData?.classname}`}
           key={`students-${classData?.classId}`}

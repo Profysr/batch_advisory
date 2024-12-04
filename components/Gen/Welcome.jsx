@@ -1,13 +1,15 @@
 import { useSession } from "@/context/SessionContext";
 
 const WelcomeComponent = () => {
-  const { session } = useSession();
+  const { memoizedSession } = useSession();
 
   return (
-    <div className="w-full flex justify-center items-center mb-8">
+    <div className="w-full flex justify-center items-center">
       <h1 className="text-2xl font-light text-center">
         Welcome <br />
-        <span className="text-3xl font-semibold">{session.name} 👋</span>
+        <span className="text-3xl font-semibold">
+          {memoizedSession.name} 👋
+        </span>
       </h1>
     </div>
   );

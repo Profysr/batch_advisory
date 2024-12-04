@@ -2,12 +2,12 @@
 
 import MagicButton from "@/components/Gen/Button";
 import EmptyPage from "@/components/Gen/EmptyPage";
-import Table from "@/components/Gen/Table";
 import DashboardLayout from "@/layout/PreLayout";
 import Popup from "../Gen/Popup";
 import { useAppContext } from "@/context/AppContext";
 import Overlay from "../Gen/Overlay";
 import { v4 as uuidv4 } from "uuid";
+import TableComponent from "@/components/Gen/Table";
 
 const ManageAdvisors = () => {
   const { showPopup, dbData, setdbData, togglePopup } = useAppContext();
@@ -55,7 +55,7 @@ const ManageAdvisors = () => {
   return (
     <DashboardLayout>
       {advisorsWithClassname?.length > 0 ? (
-        <Table
+        <TableComponent
           data={advisorsWithClassname}
           title="Batch Advisors"
           key="Batch Advisors"

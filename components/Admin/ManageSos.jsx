@@ -3,12 +3,12 @@
 import MagicButton from "@/components/Gen/Button";
 import DashboardLayout from "@/layout/PreLayout";
 import Popup from "../Gen/Popup";
-import Table from "../Gen/Table";
 import { useAppContext } from "@/context/AppContext";
 import Overlay from "../Gen/Overlay";
 import { v4 as uuidv4 } from "uuid";
 import { generateRandomColor } from "@/helper/utility";
 import Link from "next/link";
+import TableComponent from "../Gen/Table";
 
 export const ManageSos = () => {
   const { showPopup, togglePopup, dbData, setdbData } = useAppContext();
@@ -157,14 +157,13 @@ export const ManageIndividualSos = ({ slug }) => {
       <h1 className="text-2xl font-bold capitalize">
         Scheme of Study for {sos.name}
       </h1>
-      <Table
+      <TableComponent
         data={courses.map((course) => ({
           id: course?.courseCode,
           "Course Code": course?.courseCode,
           "Course Title": course?.courseTitle,
           "Credit Hours": course?.creditHours,
           "Pre-Requisites": course?.preRequisites,
-          Offered: course?.offer === true ? "✅" : null,
         }))}
         key={`courses-${sos.id}`}
         checkBoxOption={true}

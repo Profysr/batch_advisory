@@ -398,11 +398,11 @@
           "courses": [
             {
               "courseCode": "CSC101",
-              "marks": 76
+              "marks": 49
             },
             {
               "courseCode": "EEE121",
-              "marks": 80
+              "marks": 40
             },
             {
               "courseCode": "HUM100",
@@ -522,7 +522,7 @@
             },
             {
               "courseCode": "CSC354",
-              "marks": 80
+              "marks": 32
             },
             {
               "courseCode": "CSE302",
@@ -568,7 +568,7 @@
           "courses": [
             {
               "courseCode": "CSC356",
-              "marks": 72
+              "marks": 42
             },
             {
               "courseCode": "CSC432",
@@ -591,7 +591,7 @@
         {
           "semester": "Fall 2024",
           "gpa": 3.78,
-          "cgpa": 3.57,
+          "cgpa": 3.54,
           "courses": [
             {
               "courseCode": "CSC461",
@@ -802,7 +802,7 @@
             },
             {
               "courseCode": "CSC432",
-              "marks": 70
+              "marks": 40
             },
             {
               "courseCode": "CSE498",
@@ -821,7 +821,7 @@
         {
           "semester": "Fall 2024",
           "gpa": 3.78,
-          "cgpa": 3.57,
+          "cgpa": 3.4,
           "courses": [
             {
               "courseCode": "CSC461",
@@ -905,7 +905,7 @@
             },
             {
               "courseCode": "MTH105",
-              "marks": 93
+              "marks": 33
             }
           ]
         },
@@ -1028,7 +1028,7 @@
           "courses": [
             {
               "courseCode": "CSC356",
-              "marks": 72
+              "marks": 22
             },
             {
               "courseCode": "CSC432",
